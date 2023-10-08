@@ -6,7 +6,8 @@
 // import NextTickDemo from '@/demo/02_nextTick.vue'
 // import CustomDirectiveDemo from '@/demo/03_自定义指令.vue'
 // import TransitionDemo from '@/demo/04_transition.vue'
-import KeepAliveDemo from '@/demo/05-KeepAlive.vue'
+// import KeepAliveDemo from '@/demo/05-KeepAlive.vue'
+import TeleportDemo from '@/demo/06-teleport.vue'
 
 // import { ref } from 'vue'
 // const count = ref(3)
@@ -20,7 +21,8 @@ import KeepAliveDemo from '@/demo/05-KeepAlive.vue'
   <!-- <NextTickDemo /> -->
   <!-- <CustomDirectiveDemo /> -->
   <!-- <TransitionDemo /> -->
-  <KeepAliveDemo />
+  <!-- <KeepAliveDemo /> -->
+  <TeleportDemo />
 </template>
 
 <style scoped></style>

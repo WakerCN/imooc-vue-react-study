@@ -2,14 +2,9 @@
   <div style="width: 600px">
     <button @click="handleComponent(kpComp1)">comp1</button>
     <button @click="handleComponent(kpComp2)">comp2</button>
-    <KeepAlive>
-      <Suspense>
-        <component :is="curComponent" />
-        <template #fallback>
-          <FallbackComponent />
-        </template>
-      </Suspense>
-    </KeepAlive>
+    <keep-alive>
+      <component :is="curComponent" />
+    </keep-alive>
   </div>
 </template>
 
@@ -18,10 +13,12 @@ import { defineAsyncComponent, shallowRef } from 'vue'
 import FallbackComponent from '@/fallback/FallbackLoading.vue'
 
 const kpComp1 = defineAsyncComponent({
-  loader: () => import('@/demo/05-kp-comp1.vue')
+  loader: () => import('@/demo/05-kp-comp1.vue'),
+  loadingComponent: FallbackComponent
 })
 const kpComp2 = defineAsyncComponent({
-  loader: () => import('@/demo/05-kp-comp2.vue')
+  loader: () => import('@/demo/05-kp-comp2.vue'),
+  loadingComponent: FallbackComponent
 })
 
 const curComponent = shallowRef(kpComp1)
