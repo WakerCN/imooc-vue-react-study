@@ -1,0 +1,44 @@
+@import url('./font/iconfont.css');
+@font-face {
+  font-family: 'DD';
+  src: url('../assets/font/DingTalk-JinBuTi.ttf');
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'DD';
+}
+
+#app,
+html,
+body {
+  height: 100%;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type='text'] {
+  outline: none; /* 移除默认的轮廓样式 */
+  border-color: blue;
+  box-shadow: 0 0 4px rgba(0, 0, 255, 0.5);
+}
+
+li {
+  list-style: none;
+}
+
+::selection {
+  color: white;
+  background-color: #eaf2f8;
+}
+
+button {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 20px;
+  margin: 6px;
+}
