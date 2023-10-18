@@ -7,7 +7,9 @@
 // import CustomDirectiveDemo from '@/demo/03_自定义指令.vue'
 // import TransitionDemo from '@/demo/04_transition.vue'
 // import KeepAliveDemo from '@/demo/05-KeepAlive.vue'
-import TeleportDemo from '@/demo/06-teleport.vue'
+// import TeleportDemo from '@/demo/06-teleport.vue'
+// import RefDemo from '@/demo-api/01-ref.vue'
+import NetEaseCloudDemo from '@/demo-api/02-neteasecloud.vue'
 
 // import { ref } from 'vue'
 // const count = ref(3)
@@ -22,7 +24,9 @@ import TeleportDemo from '@/demo/06-teleport.vue'
   <!-- <CustomDirectiveDemo /> -->
   <!-- <TransitionDemo /> -->
   <!-- <KeepAliveDemo /> -->
-  <TeleportDemo />
+  <!-- <TeleportDemo /> -->
+  <!-- <RefDemo /> -->
+  <NetEaseCloudDemo />
 </template>
 
 <style scoped></style>

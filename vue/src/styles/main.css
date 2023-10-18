@@ -6,7 +6,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: 'DD';
+  font-family: 'DD', 'iconfont', 'Microsoft YaHei', '微软雅黑', 'MicrosoftJhengHei', '华文细黑';
 }
 
 #app,
@@ -27,13 +27,18 @@ input[type='text'] {
   box-shadow: 0 0 4px rgba(0, 0, 255, 0.5);
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+}
+
 li {
   list-style: none;
 }
 
 ::selection {
-  color: white;
-  background-color: #eaf2f8;
+  background: rgba(100, 50, 255, 0.3);
+  color: #ffffff;
 }
 
 button {
