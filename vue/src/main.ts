@@ -16,6 +16,8 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 // import * as directives from 'vuetify/directives'
 import { testPlugin } from './demo/test-plugin'
 
+import router from '@/router/router'
+
 // const vuetify = createVuetify({
 //   theme: {
 //     defaultTheme: 'dark'
@@ -34,6 +36,8 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 app.use(testPlugin)
+
+app.use(router)
 
 app.directive('color', (el, binding) => {
   el.style.background = binding.value
