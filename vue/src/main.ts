@@ -18,6 +18,8 @@ import { testPlugin } from './demo/test-plugin'
 
 import router from '@/router/router'
 
+import store from '@/store/store'
+
 // const vuetify = createVuetify({
 //   theme: {
 //     defaultTheme: 'dark'
@@ -38,6 +40,8 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 app.use(testPlugin)
 
 app.use(router)
+
+app.use(store)
 
 app.directive('color', (el, binding) => {
   el.style.background = binding.value

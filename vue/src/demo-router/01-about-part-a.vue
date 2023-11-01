@@ -1,5 +1,6 @@
 <template>
   <div>About - AAA -- id: {{ $route.params.id }}</div>
+  <div>Count {{ $store.state.count }}</div>
 </template>
 
 <script setup lang="ts">
@@ -10,7 +11,6 @@ const route = useRoute()
 
 onMounted(() => {
   route.meta
-  console.log('%c 🌰 route.meta', 'font-size:16px;color:#666666;background:#C5AEDA', route.meta)
 })
 </script>
 

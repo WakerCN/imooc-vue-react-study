@@ -10,7 +10,7 @@ const routes: RouterOptions['routes'] = [
     name: 'Home',
     component: Home,
     meta: {
-      isAdmin: false
+      auth: true
     }
   },
   {
@@ -23,7 +23,15 @@ const routes: RouterOptions['routes'] = [
         name: 'AboutPartA',
         component: AboutPartA,
         meta: {
+          auth: true,
           test: 'test-meta'
+        },
+        beforeEnter(to, from, next) {
+          if (!to.meta.auth) {
+            next({ name: 'Home' })
+          } else {
+            next()
+          }
         }
       },
       {
@@ -33,7 +41,7 @@ const routes: RouterOptions['routes'] = [
       }
     ],
     meta: {
-      isAdmin: true
+      auth: false
     }
   }
 ]
@@ -42,5 +50,13 @@ const router = createRouter({
   history: createWebHistory(),
   routes: routes
 })
+
+// router.beforeEach((to, from, next) => {
+//   if (!to.meta.auth) {
+//     next({ name: 'Home' })
+//   } else {
+//     next()
+//   }
+// })
 
 export default router
