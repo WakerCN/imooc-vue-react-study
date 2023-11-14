@@ -24,6 +24,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+      redirect: '/sign',
       meta: {
         menu: true,
         title: '考勤管理',
