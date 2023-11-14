@@ -1,9 +1,10 @@
+import { key, rootStore } from '@/store/index'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import ElementPlus from 'element-plus'
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import ElementPlus from 'element-plus'
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 
 const app = createApp(App)
 
@@ -18,5 +19,7 @@ app.use(ElementPlus, {
 })
 
 app.use(router)
+
+app.use(rootStore, key)
 
 app.mount('#app')
