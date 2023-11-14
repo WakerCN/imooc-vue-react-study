@@ -1,8 +1,16 @@
 {
   "folders": [
     {
+      "name": "workspace",
+      "path": "."
+    },
+    {
       "name": "vue",
       "path": "./vue"
+    },
+    {
+      "name": "attendance-system-vue",
+      "path": "./attendance-system-vue"
     }
   ],
   "settings": {}
