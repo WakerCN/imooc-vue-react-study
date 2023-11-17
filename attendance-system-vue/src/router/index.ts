@@ -1,8 +1,10 @@
+import { rootStore, type StateAll } from '@/store'
+import _ from 'lodash'
 import { createRouter, createWebHistory } from 'vue-router'
 const HomeView = () => import('@/views/home/HomeView.vue')
 const LoginView = () => import('@/views/login/LoginView.vue')
 const SignView = () => import('@/views/sign/SignView.vue')
-const ApprovalView = () => import('@/views/approval/ApprovalView.vue')
+const ApplyView = () => import('@/views/apply/ApplyView.vue')
 const CheckView = () => import('@/views/check/CheckView.vue')
 const ExceptionView = () => import('@/views/exception/ExceptionView.vue')
 
@@ -28,7 +30,7 @@ const router = createRouter({
       meta: {
         menu: true,
         title: '考勤管理',
-        icon: 'house',
+        icon: 'odometer',
         auth: true
       },
       children: [
@@ -50,14 +52,14 @@ const router = createRouter({
           meta: {
             menu: true,
             title: '异常考勤查询',
-            icon: 'info-filled',
+            icon: 'monitor',
             auth: true
           }
         },
         {
-          path: '/approval',
-          name: 'approval',
-          component: ApprovalView,
+          path: '/apply',
+          name: 'apply',
+          component: ApplyView,
           meta: {
             menu: true,
             title: '添加考勤审批',
@@ -71,7 +73,7 @@ const router = createRouter({
           component: CheckView,
           meta: {
             menu: true,
-            title: '我的考情审批',
+            title: '我的考勤审批',
             icon: 'finished',
             auth: true
           }
@@ -84,6 +86,27 @@ const router = createRouter({
       component: LoginView
     }
   ]
+})
+
+router.beforeEach(async (to, form, next) => {
+  const { token, infos } = (rootStore.state as StateAll).user
+  if (to.meta.auth && _.isEmpty(infos)) {
+    if (token) {
+      const res = await rootStore.dispatch('user/getInfos')
+      if (res.errcode === 0) {
+        rootStore.commit('user/updateInfos', res.infos)
+        next()
+      }
+    } else {
+      next({ name: 'login' })
+    }
+  } else {
+    if (token && to.name === 'login') {
+      next({ name: 'home' })
+    } else {
+      next()
+    }
+  }
 })
 
 export default router

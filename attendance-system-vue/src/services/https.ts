@@ -1,16 +1,24 @@
-import axios from 'axios'
+import { rootStore, type StateAll } from '@/store'
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios from 'axios'
+import { ElMessage } from 'element-plus'
 
 interface Data {
   [index: string]: unknown
 }
 
+interface HandleResponse {
+  errcode: number
+  errmsg: string
+  data: unknown
+}
+
 interface HTTP {
-  get: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<AxiosResponse>
-  post: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<AxiosResponse>
-  put: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<AxiosResponse>
-  patch: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<AxiosResponse>
-  delete: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<AxiosResponse>
+  get: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<HandleResponse>
+  post: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<HandleResponse>
+  put: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<HandleResponse>
+  patch: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<HandleResponse>
+  delete: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<HandleResponse>
 }
 
 const instance = axios.create({
@@ -22,6 +30,8 @@ const instance = axios.create({
 =========================================== */
 instance.interceptors.request.use(
   (config) => {
+    const token = (rootStore.state as StateAll).user.token
+    config.headers['Authorization'] = token
     return config
   },
   (error) => {
@@ -33,7 +43,18 @@ instance.interceptors.request.use(
 =========================================== */
 instance.interceptors.response.use(
   (response) => {
-    return response
+    if (response.data.errmsg === 'token error') {
+      ElMessage.error('登录已过期，请重新登录')
+      setTimeout(() => {
+        rootStore.commit('user/clearToken')
+        window.location.href = '/login'
+      }, 1000)
+    }
+    if (response.data.errcode !== 0) {
+      return Promise.reject(response.data)
+    } else {
+      return response.data
+    }
   },
   (error) => {
     return Promise.reject(error)

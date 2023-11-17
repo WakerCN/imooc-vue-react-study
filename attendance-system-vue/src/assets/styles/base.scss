@@ -1,0 +1,43 @@
+#app,
+body,
+html {
+  height: 100%;
+  width: 100%;
+  color: #333333;
+}
+
+::selection {
+  background-color: rgba(52, 152, 219, 0.5); /* 半透明的背景色 */
+  color: #fff;
+}
+
+@font-face {
+  font-family: 'deiYiHei';
+  src:
+    url('../font/得意黑.woff2') format('woff2'),
+    url('../font/得意黑.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'aliDfdk';
+  src:
+    url('../font/阿里东方大楷.woff2') format('woff2'),
+    url('../font/阿里东方大楷.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'aliPh';
+  src:
+    url('../font/阿里普惠.woff2') format('woff2'),
+    url('../font/阿里普惠.woff') format('woff');
+}
+@font-face {
+  font-family: 'DDJingBu';
+  src:
+    url('../font/钉钉进步体.woff2') format('woff2'),
+    url('../font/钉钉进步体.woff') format('woff');
+}
+
+body {
+  font-family: 'DDJingBu';
+}
