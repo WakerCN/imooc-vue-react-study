@@ -1,6 +1,6 @@
 import { rootStore, type StateAll } from '@/store'
 import _ from 'lodash'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, type NavigationGuardWithThis } from 'vue-router'
 const HomeView = () => import('@/views/home/HomeView.vue')
 const LoginView = () => import('@/views/login/LoginView.vue')
 const SignView = () => import('@/views/sign/SignView.vue')
@@ -17,6 +17,18 @@ declare module 'vue-router' {
     icon?: string
     auth?: boolean
   }
+}
+
+const beforeSign: NavigationGuardWithThis<any> = async (to, from, next) => {
+  const userInfos = (rootStore.state as StateAll).user.infos
+  const signInfos = (rootStore.state as StateAll).sign.infos
+  if (_.isEmpty(signInfos)) {
+    await rootStore.dispatch('sign/getInfos', { userid: userInfos?._id })
+    next()
+  } else {
+    next()
+  }
+  rootStore
 }
 
 const router = createRouter({
@@ -44,17 +56,7 @@ const router = createRouter({
             icon: 'aim',
             auth: true
           },
-          beforeEnter: async (to, from, next) => {
-            const userInfos = (rootStore.state as StateAll).user.infos
-            const signInfos = (rootStore.state as StateAll).sign.infos
-            if (_.isEmpty(signInfos)) {
-              await rootStore.dispatch('sign/getInfos', { userid: userInfos?._id })
-              next()
-            } else {
-              next()
-            }
-            rootStore
-          }
+          beforeEnter: beforeSign
         },
         {
           path: '/exception',
@@ -65,7 +67,8 @@ const router = createRouter({
             title: '异常考勤查询',
             icon: 'monitor',
             auth: true
-          }
+          },
+          beforeEnter: beforeSign
         },
         {
           path: '/apply',

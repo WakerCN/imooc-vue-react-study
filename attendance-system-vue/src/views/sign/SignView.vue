@@ -4,16 +4,20 @@
       <ElDescriptionsItem label="月份" align="right" :width="60">
         {{ month }}月
       </ElDescriptionsItem>
-      <ElDescriptionsItem
-        v-for="(value, key) in DetailKey"
-        :key="key"
-        :label="value"
-        align="right"
-      >
+      <ElDescriptionsItem v-for="(value, key) in DetailKey" :key="key" :label="value" align="right">
         {{ detailInfo[key] }}
       </ElDescriptionsItem>
       <ElDescriptionsItem label="操作" :width="120" align="center">
-        <ElButton type="primary" plain @click="$router.push({ name: 'exception' })">
+        <ElButton
+          type="primary"
+          plain
+          @click="
+            $router.push({
+              name: 'exception',
+              query: { time: `${selectDate.getFullYear()}-${String(month).padStart(2, '0')}` }
+            })
+          "
+        >
           查看详情
         </ElButton>
       </ElDescriptionsItem>
