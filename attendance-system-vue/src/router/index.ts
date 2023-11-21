@@ -43,6 +43,17 @@ const router = createRouter({
             title: '在线打卡签到',
             icon: 'aim',
             auth: true
+          },
+          beforeEnter: async (to, from, next) => {
+            const userInfos = (rootStore.state as StateAll).user.infos
+            const signInfos = (rootStore.state as StateAll).sign.infos
+            if (_.isEmpty(signInfos)) {
+              await rootStore.dispatch('sign/getInfos', { userid: userInfos?._id })
+              next()
+            } else {
+              next()
+            }
+            rootStore
           }
         },
         {

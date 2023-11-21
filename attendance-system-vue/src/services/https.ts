@@ -1,5 +1,5 @@
 import { rootStore, type StateAll } from '@/store'
-import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { AxiosRequestConfig } from 'axios'
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 
@@ -10,7 +10,8 @@ interface Data {
 interface HandleResponse {
   errcode: number
   errmsg: string
-  data: unknown
+  data?: unknown
+  [index: string]: unknown
 }
 
 interface HTTP {

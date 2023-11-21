@@ -67,6 +67,7 @@ const handleLogout = () => {
       margin-left: 16px;
     }
     .user {
+      outline: none;
       height: 30px;
       padding: 10px;
       border-radius: 8px;
