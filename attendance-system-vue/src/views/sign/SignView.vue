@@ -154,6 +154,7 @@ const clickCell = (data: { [index: string]: any }) => {
 
 /** 打卡签到 */
 const handleSign = async () => {
+  handleToday()
   await rootStore.dispatch('sign/sign')
 }
 </script>

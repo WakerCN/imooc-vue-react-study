@@ -28,7 +28,6 @@ const beforeSign: NavigationGuardWithThis<any> = async (to, from, next) => {
   } else {
     next()
   }
-  rootStore
 }
 
 const router = createRouter({
@@ -68,7 +67,18 @@ const router = createRouter({
             icon: 'monitor',
             auth: true
           },
-          beforeEnter: beforeSign
+          beforeEnter: async (to, from, next) => {
+            const userInfos = (rootStore.state as StateAll).user.infos
+            const signInfos = (rootStore.state as StateAll).sign.infos
+            const checkList = (rootStore.state as StateAll).check.list
+            if (_.isEmpty(signInfos)) {
+              await rootStore.dispatch('sign/getInfos', { userid: userInfos?._id })
+              if (_.isEmpty(checkList)) {
+                await rootStore.dispatch('check/getList')
+              }
+            }
+            next()
+          }
         },
         {
           path: '/apply',
@@ -79,6 +89,10 @@ const router = createRouter({
             title: '添加考勤审批',
             icon: 'document-checked',
             auth: true
+          },
+          beforeEnter: async (to, from, next) => {
+            await rootStore.dispatch('check/getList')
+            next()
           }
         },
         {
