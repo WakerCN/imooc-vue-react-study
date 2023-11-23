@@ -97,7 +97,7 @@ const renderDetail = (detail: unknown): string => {
 }
 
 const applyList = computed(() =>
-  store.state.check.list.filter((apply) =>
+  store.state.check.applyList.filter((apply) =>
     dayjs(curMonth.value).isBetween(
       dayjs(apply.time[0]).startOf('month'),
       dayjs(apply.time[1]).endOf('month'),

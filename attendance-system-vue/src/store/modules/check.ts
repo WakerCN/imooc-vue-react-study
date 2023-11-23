@@ -10,6 +10,7 @@ import type { Module } from 'vuex'
 import type { RootState, StateAll } from '..'
 
 export interface CheckInfo {
+  _id: string
   /** 状态 */
   state: string
   /** 事件 */
@@ -24,31 +25,52 @@ export interface CheckInfo {
   note: string
 }
 
+type ApplyList = Array<CheckInfo>
 type CheckList = Array<CheckInfo>
+
 export interface CheckState {
-  list: CheckList
+  applyList: ApplyList
+  checkList: CheckList
 }
 
 export const checkStore: Module<CheckState, RootState> = {
   namespaced: true,
   state: {
-    list: []
+    applyList: [],
+    checkList: []
   },
   mutations: {
-    updateList: (state, payload) => {
-      state.list = payload
+    updateApplyList: (state, payload) => {
+      state.applyList = payload
+    },
+    updateCheckList: (state, payload) => {
+      state.checkList = payload
     }
   },
   actions: {
-    getList: async (context) => {
+    /** 获取申请列表 */
+    getApplyList: async (context) => {
       const userInfo = (context.rootState as StateAll).user.infos
       const result = await http.get('/checks/apply', { applicantid: userInfo!._id })
       if (result.errcode === 0) {
-        context.commit('updateList', result.rets)
+        context.commit('updateApplyList', result.rets)
       }
     },
+    /** 添加审批申请 */
     addApply: async (context, payload) => {
       return await http.post('/checks/apply', payload)
+    },
+    /** 获取审批列表 */
+    getCheckList: async (context) => {
+      const userInfo = (context.rootState as StateAll).user.infos
+      const result = await http.get('/checks/apply', { approverid: userInfo!._id })
+      if (result.errcode === 0) {
+        context.commit('updateCheckList', result.rets)
+      }
+    },
+    /** 审批 */
+    apply: async (context, payload) => {
+      return await http.put('checks/apply', payload)
     }
   }
 }

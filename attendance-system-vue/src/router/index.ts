@@ -70,11 +70,11 @@ const router = createRouter({
           beforeEnter: async (to, from, next) => {
             const userInfos = (rootStore.state as StateAll).user.infos
             const signInfos = (rootStore.state as StateAll).sign.infos
-            const checkList = (rootStore.state as StateAll).check.list
+            const checkList = (rootStore.state as StateAll).check.applyList
             if (_.isEmpty(signInfos)) {
               await rootStore.dispatch('sign/getInfos', { userid: userInfos?._id })
               if (_.isEmpty(checkList)) {
-                await rootStore.dispatch('check/getList')
+                await rootStore.dispatch('check/getApplyList')
               }
             }
             next()
@@ -91,7 +91,7 @@ const router = createRouter({
             auth: true
           },
           beforeEnter: async (to, from, next) => {
-            await rootStore.dispatch('check/getList')
+            await rootStore.dispatch('check/getApplyList')
             next()
           }
         },
@@ -104,6 +104,10 @@ const router = createRouter({
             title: '我的考勤审批',
             icon: 'finished',
             auth: true
+          },
+          beforeEnter: async (to, from, next) => {
+            await rootStore.dispatch('check/getCheckList')
+            next()
           }
         }
       ]

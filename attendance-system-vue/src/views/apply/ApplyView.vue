@@ -124,16 +124,17 @@ interface CheckForm {
 
 const defaultCheckForm: Partial<CheckForm> = {}
 
+const store = useStore()
+
 const keyword = ref('')
 const checkStatus = ref('全部')
 const pageSize = ref(10)
 const currentPage = ref(1)
-const store = useStore()
 const dialogVisible = ref(false)
 
 /** 过滤搜索条件后所有数据 */
 const resultList = computed(() =>
-  store.state.check.list.filter(
+  store.state.check.applyList.filter(
     (item) =>
       (item.reason.includes(keyword.value) || item.note.includes(keyword.value)) &&
       (checkStatus.value === '全部' || item.state === checkStatus.value)
